@@ -7,33 +7,33 @@ using System.Threading.Tasks;
 
 namespace GestoreEventi
 {
-    internal class Evento
+    public class Evento
     {
         private string title;
+        private string dateTimeEventString;
         private DateTime dateTimeEvent;
-        private int maxSeats;
+        private int totalSeats;
         private int bookedSeats;
         private int availableSeats;
-        private int requestSeats;
-        private int removeSeats;
 
-        public Evento(string title, DateTime dateTimeEvent, int bookedSeats)
+        public Evento(string title, string dateTimeEventString, int totalSeats)
         {
-            bookedSeats = 0;
+            
             this.title = title;
-            this.dateTimeEvent = dateTimeEvent;
-            this.bookedSeats = bookedSeats;
+            this.dateTimeEventString = dateTimeEventString;
+            this.totalSeats = totalSeats;
 
-            availableSeats = maxSeats - bookedSeats;
+            bookedSeats = 0;
+            dateTimeEvent = DateTime.Parse(dateTimeEventString);
+            availableSeats = totalSeats;
         }
 
         public string GetTitle () { return this.title; }
-        public DateTime GetData () { return this.dateTimeEvent; }
-        public int GetMaxSeats () { return this.maxSeats;}
+        public DateTime GetDate () { return this.dateTimeEvent; }
+        public int GetTotalSeats () { return this.totalSeats;}
         public int GetBookedSeats () { return this.bookedSeats; }
         public int GetAvailableSeats () { return this.availableSeats; }
 
-        //public int GetRequestSeats() { return this.requestSeats; }
         //public int GetRemoveSeats() { return this.removeSeats; }
 
         public void SetTitle(string title) 
@@ -54,17 +54,23 @@ namespace GestoreEventi
             this.dateTimeEvent = dateTimeEvent; 
         }
 
-        private void SetMaxSeats(int maxSeats)
+        private void SetTotalSeats(int maxSeats)
         {
             if(maxSeats <= 0)
             {
                 throw new Exception("ATTENZIONE - NON HAI INSERITO IL NUMERO DI POSTI MASSIMO");
             }
-            this.maxSeats = maxSeats;
+            this.totalSeats = maxSeats;
         }
         public void SetBookedSeats(int bookedSeats)
         {
+            if(bookedSeats > availableSeats)
+            {
+                throw new Exception("ATTENZIONE - NON PUOI PRENOTARE PIU' POSTI DI QUELLI DISPONIBILI.");
+            }
             this.bookedSeats = bookedSeats;
+            this.availableSeats = availableSeats- bookedSeats;
+
         }
 
         public void SetAvailableSeats(int availableSeats)
@@ -72,19 +78,10 @@ namespace GestoreEventi
             this.availableSeats = availableSeats;
         }
 
-        public void SetRequestSeats(int requestSeats)
-        {
-            this.requestSeats= requestSeats;
-        }
 
-        public void SetRemoveSeats(int removeSeats)
+        public void PrenotaPosti(int bookedSeats)
         {
-            this.removeSeats = removeSeats;
-        }
-
-        public void PrenotaPosti()
-        {
-            if(requestSeats > availableSeats)
+            if(bookedSeats > availableSeats)
             {
                 throw new Exception("ATTENZIONE - NON PUOI PRENOTARE PIU' POSTI DI QUELLI DISPONIBILI");
             }
@@ -94,15 +91,17 @@ namespace GestoreEventi
                 throw new Exception("ATTENZIONE - PRENOTAZIONE BLOCCATA. L'EVENTO E' PASSATO O IN CORSO.");
             }
 
-            this.bookedSeats += requestSeats;
-            
+            this.bookedSeats = bookedSeats;
+            this.availableSeats = availableSeats - bookedSeats;
+
+
         }
 
-        public void DisdiciPosti()
+        public void DisdiciPosti(int removeSeats)
         {
-            if (removeSeats > bookedSeats)
+            if (removeSeats > this.bookedSeats)
             {
-                throw new Exception("ATTENZIONE - NON PUOI DISDIRE PIU' POSTI DI QUELLI PRENOTATI");
+                throw new Exception("ATTENZIONE - NON PUOI DISDIRE PIU' POSTI DI QUELLI PRENOTATI.");
             }
 
             if (dateTimeEvent <= DateTime.Now)
@@ -111,12 +110,13 @@ namespace GestoreEventi
             }
 
             this.bookedSeats -= removeSeats;
+            this.availableSeats += removeSeats;
         }
 
         public override string ToString()
         {
             //return base.ToString();
-            return Console.WriteLine($"{dateTimeEvent} - {title}");
+            return dateTimeEvent + " - " + title;
         }
     }
 }
