@@ -55,7 +55,7 @@ namespace GestoreEventi
             }
             else {
 
-                foreach (Evento evento in listEvents)
+            foreach (Evento evento in listEvents)
                 {
                     Console.WriteLine(evento);
                 }
@@ -76,11 +76,16 @@ namespace GestoreEventi
             ProgrammaEventi.StampaLista(events);
         }
 
-        public static void PrintList(string title, List<Evento> events)
+        public void PrintList(string title)
         {
              Console.WriteLine($"Titolo programma {title} \n\nData-----Eventi\n");
+            Console.WriteLine("Elementi nella lista " + events.Count());
+            // ProgrammaEventi.StampaLista(events);
+            foreach (Evento evento in events)
+            {
+                Console.WriteLine(evento);
+            }
 
-            ProgrammaEventi.StampaLista(events);
         }
     }
 }

@@ -3,6 +3,7 @@
 using GestoreEventi;
 using System;
 
+//Dichiariazioni variabili
 string titleEvent = "";
 string titleProgram = "";
 string dateTimeEventString;
@@ -24,8 +25,13 @@ numberEvents = int.Parse(Console.ReadLine());
 
 ProgrammaEventi program = new ProgrammaEventi(titleProgram);
 
+
+
+
 for (int i = 1; i<= numberEvents; i++)
 {
+
+
     Console.WriteLine("Titolo");
     titleEvent = Console.ReadLine();
     Console.WriteLine("Data dell'evento");
@@ -33,20 +39,30 @@ for (int i = 1; i<= numberEvents; i++)
     Console.WriteLine("Posti totali per l'evento");
     totalSeats = int.Parse(Console.ReadLine());
 
+
+
     Evento eventObj = new Evento(titleEvent, dateTimeEventString, totalSeats);
 
     events = new List<Evento> {eventObj};
+
+
 
     Console.WriteLine("Inserisci il numero di posti da riservare con prenotazione:");
     bookedSeats = int.Parse(Console.ReadLine());
     eventObj.PrenotaPosti(bookedSeats);
 
+
+
     Console.WriteLine("Posti prenotati: " + eventObj.GetBookedSeats() + " - Posti disponibili " + eventObj.GetAvailableSeats());
+
+
 
     do
     {
         Console.WriteLine("Desideri disdire dei posti prenotati. si/no");
         confirmRemovingSeats = Console.ReadLine();
+
+
 
         if (confirmRemovingSeats.ToLower() == "si")
         {
@@ -57,22 +73,25 @@ for (int i = 1; i<= numberEvents; i++)
             eventObj.DisdiciPosti(removeSeats);
             Console.WriteLine("Posti prenotati: " + eventObj.GetBookedSeats() + " - Posti disponibili " + eventObj.GetAvailableSeats());
         }
+
+
         else
         {
             checkRemoveSeats = false;
         }
+
     } while (checkRemoveSeats);
 
     
     program.AggiungiEvento(eventObj);
 
 
-
+    //Quando finisce il ciclo for si attiva questo if.
     if(i == numberEvents)
     {
         Console.WriteLine("Numero di eventi del programma " + program.NumeroEventi());
         Console.WriteLine(Environment.NewLine);
-        ProgrammaEventi.PrintList(titleProgram,events);
+        program.PrintList(titleProgram);
         Console.WriteLine(Environment.NewLine);
 
         Console.WriteLine("Inserisci una data per vedere tutti gli eventi di quel giorno");
