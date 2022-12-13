@@ -22,7 +22,9 @@ titleProgram = Console.ReadLine();
 Console.WriteLine("Quanti eventi vuoi aggiungere al programma?");
 numberEvents = int.Parse(Console.ReadLine());
 
-for(int i = 1; i<= numberEvents; i++)
+ProgrammaEventi program = new ProgrammaEventi(titleProgram);
+
+for (int i = 1; i<= numberEvents; i++)
 {
     Console.WriteLine("Titolo");
     titleEvent = Console.ReadLine();
@@ -61,7 +63,7 @@ for(int i = 1; i<= numberEvents; i++)
         }
     } while (checkRemoveSeats);
 
-    ProgrammaEventi program = new ProgrammaEventi(titleProgram);
+    
     program.AggiungiEvento(eventObj);
 
 
@@ -72,6 +74,11 @@ for(int i = 1; i<= numberEvents; i++)
         Console.WriteLine(Environment.NewLine);
         ProgrammaEventi.PrintList(titleProgram,events);
         Console.WriteLine(Environment.NewLine);
+
+        Console.WriteLine("Inserisci una data per vedere tutti gli eventi di quel giorno");
+        dateTimeEventString = Console.ReadLine();
+
+        program.StampaEventiPerData(dateTimeEventString);
 
         program.SvuotaEventi(events);
         Console.WriteLine(Environment.NewLine);

@@ -31,12 +31,19 @@ namespace GestoreEventi
 
         public void StampaEventiPerData(string date)
         {
+            int i = 0;
+
             foreach(Evento evento in events)
             {
                 if(DateTime.Parse(date) == evento.GetDate())
                 {
                     Console.WriteLine(evento);
+                    i++;
                 }
+            }
+            if(i == 0)
+            {
+                Console.WriteLine("Non ci sono eventi programmati per la data " + date);
             }
         }
 
@@ -44,12 +51,17 @@ namespace GestoreEventi
         {
             if(listEvents.Count == 0)
             {
-                Console.WriteLine("La lista di eventi è vuota");
-            } else
-            foreach(Evento evento in listEvents)
-            {
-                Console.WriteLine(evento);
+                Console.WriteLine("Gli elementi della lista sono stati cancellati");
             }
+            else {
+
+                foreach (Evento evento in listEvents)
+                {
+                    Console.WriteLine(evento);
+                }
+            }
+
+           
         }
 
         public int NumeroEventi () 
