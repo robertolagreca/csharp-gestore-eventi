@@ -18,7 +18,18 @@ namespace GestoreEventi
 
         public Evento(string title, string dateTimeEventString, int totalSeats)
         {
-            
+            if (title == "" || title == " ")
+            {
+                throw new ArgumentException("ATTENZIONE - NON HAI INSERITO NESSUN TITOLO");
+            }
+            if (dateTimeEvent < DateTime.Now)
+            {
+                throw new ArgumentException("ATTENZIONE - NON HAI INSERITO NESSUNA DATA");
+            }
+            if (totalSeats <= 0)
+            {
+                throw new ArgumentException("ATTENZIONE - NON HAI INSERITO IL NUMERO DI POSTI MASSIMO");
+            }
             this.title = title;
             this.dateTimeEventString = dateTimeEventString;
             this.totalSeats = totalSeats;

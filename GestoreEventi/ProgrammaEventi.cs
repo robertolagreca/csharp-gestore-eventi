@@ -78,7 +78,7 @@ namespace GestoreEventi
 
         public void PrintList(string title)
         {
-             Console.WriteLine($"Titolo programma {title} \n\nData-----Eventi\n");
+            Console.WriteLine($"Titolo programma {title} \n\nData-----Eventi\n");
             Console.WriteLine("Elementi nella lista " + events.Count());
             // ProgrammaEventi.StampaLista(events);
             foreach (Evento evento in events)

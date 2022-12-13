@@ -6,7 +6,7 @@ using System;
 //Dichiariazioni variabili
 string titleEvent = "";
 string titleProgram = "";
-string dateTimeEventString;
+string dateTimeEventString ="";
 string confirmRemovingSeats = "no";
 int numberEvents = 0;
 int totalSeats = 0;
@@ -16,7 +16,7 @@ bool checkRemoveSeats = false;
 List<Evento> events = new List<Evento>();
 
 
-
+//NOME PROGRAMMA E QUANTI EVENTI
 Console.WriteLine("Inserire i dati richiesti:");
 Console.WriteLine("Nome del programma eventi: ");
 titleProgram = Console.ReadLine();
@@ -27,20 +27,17 @@ ProgrammaEventi program = new ProgrammaEventi(titleProgram);
 
 
 
-
+//CICLO PER CREARE GLI EVENTI
 for (int i = 1; i<= numberEvents; i++)
 {
+        Console.WriteLine("Titolo");
+        titleEvent = Console.ReadLine();
+        Console.WriteLine("Data dell'evento");
+        dateTimeEventString = Console.ReadLine();
+        Console.WriteLine("Posti totali per l'evento");
+        totalSeats = int.Parse(Console.ReadLine());
 
-
-    Console.WriteLine("Titolo");
-    titleEvent = Console.ReadLine();
-    Console.WriteLine("Data dell'evento");
-    dateTimeEventString = Console.ReadLine();
-    Console.WriteLine("Posti totali per l'evento");
-    totalSeats = int.Parse(Console.ReadLine());
-
-
-
+    try { 
     Evento eventObj = new Evento(titleEvent, dateTimeEventString, totalSeats);
 
     events = new List<Evento> {eventObj};
@@ -101,6 +98,12 @@ for (int i = 1; i<= numberEvents; i++)
 
         program.SvuotaEventi(events);
         Console.WriteLine(Environment.NewLine);
+    }
+    }
+    catch (ArgumentException e)
+    {
+        Console.WriteLine(e.Message);
+        i -= 1;
     }
 
 }
