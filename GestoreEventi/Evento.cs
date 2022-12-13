@@ -22,7 +22,7 @@ namespace GestoreEventi
             {
                 throw new ArgumentException("ATTENZIONE - NON HAI INSERITO NESSUN TITOLO");
             }
-            if (dateTimeEvent < DateTime.Now)
+            if (DateTime.Parse(dateTimeEventString) < DateTime.Now)
             {
                 throw new ArgumentException("ATTENZIONE - NON HAI INSERITO NESSUNA DATA");
             }
