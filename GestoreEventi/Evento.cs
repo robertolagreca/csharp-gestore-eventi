@@ -51,16 +51,16 @@ namespace GestoreEventi
         { 
             if (title == "" || title == " ")
             {
-                throw new Exception("ATTENZIONE - NON HAI INSERITO NESSUN TITOLO");
+                throw new ArgumentException("ATTENZIONE - NON HAI INSERITO NESSUN TITOLO");
             }
 
             this.title = title;
         }
         public void SetData(DateTime dateTimeEvent) 
         { 
-            if(dateTimeEvent == DateTime.MinValue)
+            if(dateTimeEvent < DateTime.Now)
             {
-                throw new Exception("ATTENZIONE - NON HAI INSERITO NESSUNA DATA");
+                throw new ArgumentException("ATTENZIONE - NON HAI INSERITO NESSUNA DATA");
             }
             this.dateTimeEvent = dateTimeEvent; 
         }
@@ -69,7 +69,7 @@ namespace GestoreEventi
         {
             if(maxSeats <= 0)
             {
-                throw new Exception("ATTENZIONE - NON HAI INSERITO IL NUMERO DI POSTI MASSIMO");
+                throw new ArgumentException("ATTENZIONE - NON HAI INSERITO IL NUMERO DI POSTI MASSIMO");
             }
             this.totalSeats = maxSeats;
         }
@@ -77,7 +77,7 @@ namespace GestoreEventi
         {
             if(bookedSeats > availableSeats)
             {
-                throw new Exception("ATTENZIONE - NON PUOI PRENOTARE PIU' POSTI DI QUELLI DISPONIBILI.");
+                throw new ArgumentException("ATTENZIONE - NON PUOI PRENOTARE PIU' POSTI DI QUELLI DISPONIBILI.");
             }
             this.bookedSeats = bookedSeats;
             this.availableSeats = availableSeats- bookedSeats;
@@ -94,12 +94,12 @@ namespace GestoreEventi
         {
             if(bookedSeats > availableSeats)
             {
-                throw new Exception("ATTENZIONE - NON PUOI PRENOTARE PIU' POSTI DI QUELLI DISPONIBILI");
+                throw new ArgumentException("ATTENZIONE - NON PUOI PRENOTARE PIU' POSTI DI QUELLI DISPONIBILI");
             }
 
             if (dateTimeEvent <= DateTime.Now)
             {
-                throw new Exception("ATTENZIONE - PRENOTAZIONE BLOCCATA. L'EVENTO E' PASSATO O IN CORSO.");
+                throw new ArgumentException("ATTENZIONE - PRENOTAZIONE BLOCCATA. L'EVENTO E' PASSATO O IN CORSO.");
             }
 
             this.bookedSeats = bookedSeats;
@@ -112,12 +112,12 @@ namespace GestoreEventi
         {
             if (removeSeats > this.bookedSeats)
             {
-                throw new Exception("ATTENZIONE - NON PUOI DISDIRE PIU' POSTI DI QUELLI PRENOTATI.");
+                throw new ArgumentException("ATTENZIONE - NON PUOI DISDIRE PIU' POSTI DI QUELLI PRENOTATI.");
             }
 
             if (dateTimeEvent <= DateTime.Now)
             {
-                throw new Exception("ATTENZIONE - PRENOTAZIONE BLOCCATA. L'EVENTO E' PASSATO O IN CORSO.");
+                throw new ArgumentException("ATTENZIONE - PRENOTAZIONE BLOCCATA. L'EVENTO E' PASSATO O IN CORSO.");
             }
 
             this.bookedSeats -= removeSeats;
