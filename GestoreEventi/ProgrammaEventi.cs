@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GestoreEventi
 {
-    internal class ProgrammaEventi
+    public class ProgrammaEventi
     {
         private string title;
         private List<Evento> events;
@@ -17,6 +17,12 @@ namespace GestoreEventi
             this.title = title;
             events = new List<Evento>();
         }
+
+
+        public string GetTitleProgram() { return this.title; }
+
+        public List<Evento> GetEvents() { return this.events; }
+
 
         public void AggiungiEvento(Evento evento)
         {
@@ -42,9 +48,9 @@ namespace GestoreEventi
             }
         }
 
-        public int NumeroEventi (List<Evento> listEvents) 
+        public int NumeroEventi () 
         {
-            return listEvents.Count();
+            return this.events.Count();
         }
 
         public void SvuotaEventi (List<Evento> listEvents)
@@ -52,10 +58,9 @@ namespace GestoreEventi
             listEvents.Clear();
         }
 
-        public override string ToString()
+        public static void PrintList(string title, List<Evento> events)
         {
-            //return base.ToString();
-            return "Titolo programma " + title + "\n Data-Eventi \n " + events;
+             Console.WriteLine("Titolo programma " + title + "\n Data-Eventi \n " + events);
 
         }
     }
