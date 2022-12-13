@@ -1,6 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using GestoreEventi;
+using System;
 
 string titleEvent = "";
 string titleProgram = "";
@@ -11,6 +12,7 @@ int totalSeats = 0;
 int bookedSeats = 0;
 int removeSeats = 0;
 bool checkRemoveSeats = false;
+List<Evento> events = new List<Evento>();
 
 
 
@@ -30,6 +32,8 @@ for(int i = 1; i<= numberEvents; i++)
     totalSeats = int.Parse(Console.ReadLine());
 
     Evento eventObj = new Evento(titleEvent, dateTimeEventString, totalSeats);
+
+    events = new List<Evento> {eventObj};
 
     Console.WriteLine("Inserisci il numero di posti da riservare con prenotazione:");
     bookedSeats = int.Parse(Console.ReadLine());
@@ -65,11 +69,17 @@ for(int i = 1; i<= numberEvents; i++)
     if(i == numberEvents)
     {
         Console.WriteLine("Numero di eventi del programma " + program.NumeroEventi());
-        
+        Console.WriteLine(Environment.NewLine);
+        ProgrammaEventi.PrintList(titleProgram,events);
+        Console.WriteLine(Environment.NewLine);
+
+        program.SvuotaEventi(events);
+        Console.WriteLine(Environment.NewLine);
     }
-    
 
 }
+
+
 
 
 

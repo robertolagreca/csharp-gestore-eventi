@@ -40,8 +40,12 @@ namespace GestoreEventi
             }
         }
 
-        public static void  StampaLista(List<Evento> listEvents) 
+        public static void  StampaLista(List<Evento> listEvents)
         {
+            if(listEvents.Count == 0)
+            {
+                Console.WriteLine("La lista di eventi è vuota");
+            } else
             foreach(Evento evento in listEvents)
             {
                 Console.WriteLine(evento);
@@ -56,12 +60,15 @@ namespace GestoreEventi
         public void SvuotaEventi (List<Evento> listEvents)
         {
             listEvents.Clear();
+            this.events = listEvents;
+            ProgrammaEventi.StampaLista(events);
         }
 
         public static void PrintList(string title, List<Evento> events)
         {
-             Console.WriteLine("Titolo programma " + title + "\n Data-Eventi \n " + events);
+             Console.WriteLine($"Titolo programma {title} \n\nData-----Eventi\n");
 
+            ProgrammaEventi.StampaLista(events);
         }
     }
 }
